@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ark",
+  "name": "Planet Ark",
+  "description": "A mod that make a lot of changes to the minecraft world",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Vanhal/Ark/",
+  "updateUrl": "https://github.com/Vanhal/Ark/releases",
+  "authorList": ["Vanhal"],
+  "credits": "Vanhal",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
