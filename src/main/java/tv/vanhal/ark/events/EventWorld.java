@@ -9,8 +9,7 @@ public class EventWorld {
 
 	@SubscribeEvent
 	public void stripWildlife(DecorateBiomeEvent.Decorate event) {
-		if ( 	(event.type == DecorateBiomeEvent.Decorate.EventType.TREE) || 
-				(event.type == DecorateBiomeEvent.Decorate.EventType.GRASS) || 
+		if ( 	/*(event.type == DecorateBiomeEvent.Decorate.EventType.TREE) || */
 				(event.type == DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM) || 
 				(event.type == DecorateBiomeEvent.Decorate.EventType.PUMPKIN)|| 
 				(event.type == DecorateBiomeEvent.Decorate.EventType.REED) || 
