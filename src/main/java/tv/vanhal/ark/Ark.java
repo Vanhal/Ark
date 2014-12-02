@@ -9,10 +9,12 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import tv.vanhal.ark.blocks.ArkBlocks;
 import tv.vanhal.ark.core.Proxy;
 import tv.vanhal.ark.events.EventDrops;
 import tv.vanhal.ark.events.EventSpawning;
 import tv.vanhal.ark.events.EventWorld;
+import tv.vanhal.ark.items.ArkItems;
 import tv.vanhal.ark.ref.Ref;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -59,6 +61,9 @@ public class Ark {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		ArkBlocks.preInit();
+		ArkItems.preInit();
+		
 		MinecraftForge.EVENT_BUS.register(spawnEvents);
 		MinecraftForge.EVENT_BUS.register(dropEvents);
 		MinecraftForge.TERRAIN_GEN_BUS.register(worldEvents);
@@ -66,10 +71,15 @@ public class Ark {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		ArkItems.init();
+		ArkBlocks.init();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		ArkItems.postInit();
+		ArkBlocks.postInit();
+		
 		proxy.registerEntities();
 	}
 

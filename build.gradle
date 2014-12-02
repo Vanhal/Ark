@@ -36,8 +36,8 @@ config.buildNum = x - y
 apply plugin: 'forge'
 
 version = config.mod_version + "." + config.buildNum
-group= "com.vanhal.progressiveautomation" 
-archivesBaseName = "ProgressiveAutomation-" + config.minecraft_version
+group= "tv.vanhal.ark" 
+archivesBaseName = "PlanetArk-" + config.minecraft_version
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
