@@ -23,10 +23,14 @@ public class BlockBase extends Block {
 	}
 	
 	public void init() {
-		
+		setRecipe();
 	}
 	
 	public void postInit() {
+		
+	}
+	
+	protected void setRecipe() {
 		
 	}
 

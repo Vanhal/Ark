@@ -15,6 +15,9 @@ import tv.vanhal.ark.events.EventDrops;
 import tv.vanhal.ark.events.EventSpawning;
 import tv.vanhal.ark.events.EventWorld;
 import tv.vanhal.ark.items.ArkItems;
+import tv.vanhal.ark.network.NetworkHandler;
+import tv.vanhal.ark.network.PartialTileNBTUpdateMessage;
+import tv.vanhal.ark.network.PartialTileNBTUpdateMessageHandler;
 import tv.vanhal.ark.ref.Ref;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -27,6 +30,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = Ref.MODID, name = Ref.MODNAME, version = Ref.Version)
 public class Ark {
@@ -61,6 +65,9 @@ public class Ark {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		NetworkHandler.registerMessageHandler(PartialTileNBTUpdateMessageHandler.class,
+				PartialTileNBTUpdateMessage.class, Side.CLIENT);
+		
 		ArkBlocks.preInit();
 		ArkItems.preInit();
 		

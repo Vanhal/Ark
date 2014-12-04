@@ -63,7 +63,7 @@ public class BlockTempCropPotato extends BlockCrops {
         	for (int i =1; i<=3; i++) {
         		if (world.rand.nextInt(15) < ((int)chance/i)) {
         			ItemStack itemStack = new ItemStack(ArkItems.potato, 1);
-        			itemStack.setItemDamage(1);
+        			itemStack = ArkItems.potato.harvestCrop(itemStack, world);
         			ret.add(itemStack);
         		}
         	}

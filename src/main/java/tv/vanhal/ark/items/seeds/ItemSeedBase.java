@@ -2,14 +2,17 @@ package tv.vanhal.ark.items.seeds;
 
 import java.util.List;
 
+import cpw.mods.fml.common.MinecraftDummyContainer;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import tv.vanhal.ark.Ark;
 import tv.vanhal.ark.blocks.crops.BlockCropBase;
 import tv.vanhal.ark.items.ArkItems;
 import tv.vanhal.ark.items.ItemBase;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -22,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemSeedBase extends ItemBase implements IPlantable {
@@ -36,6 +40,7 @@ public class ItemSeedBase extends ItemBase implements IPlantable {
 	}
 	
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    	itemStack.getItemDamage();
     	if (side!=1) {
     		return false;
     	} else if (itemStack.getItemDamage()!=0) {
@@ -67,7 +72,12 @@ public class ItemSeedBase extends ItemBase implements IPlantable {
     @Override
     public int getDamage(ItemStack stack) {
     	if ( (stack.hasTagCompound()) && (stack.getTagCompound().hasKey("HarvestTime")) ) {
-    		long worldTime = MinecraftServer.getServer().worldServerForDimension(0).getWorldTime();
+    		long worldTime = 0;
+    		if (Ark.proxy.isServer()) {
+    			worldTime = MinecraftServer.getServer().worldServerForDimension(0).getWorldTime();
+    		} else {
+    			worldTime = Minecraft.getMinecraft().theWorld.getWorldTime();
+    		}
     		long harvestTime = stack.getTagCompound().getLong("HarvestTime");
     		if ((worldTime - harvestTime) > genermiateTime) {
     			stack.setTagCompound(null);
@@ -77,15 +87,16 @@ public class ItemSeedBase extends ItemBase implements IPlantable {
     	return super.getDamage(stack);
     }
     
-    @Override
-    public void setDamage(ItemStack stack, int damage) {
-        super.setDamage(stack, damage);
-        if ( (damage==1) && (!stack.hasTagCompound()) ) {
-        	stack.setTagCompound(new NBTTagCompound());
-    		long worldTime = MinecraftServer.getServer().worldServerForDimension(0).getWorldTime();
-    		worldTime = (worldTime + 50)/100 * 100;
-    		stack.getTagCompound().setLong("HarvestTime", worldTime);
-        }
+    public ItemStack harvestCrop(ItemStack itemStack, World world) {
+    	if (!world.isRemote) {
+	    	itemStack.setItemDamage(1);
+	    	itemStack.setTagCompound(new NBTTagCompound());
+	    	long worldTime = world.getWorldTime();
+	    	worldTime = (worldTime + 50)/100 * 100;
+	    	//Ark.logger.info("Setting harvest time to: "+worldTime);
+	    	itemStack.getTagCompound().setLong("HarvestTime", worldTime);
+    	}
+    	return itemStack;
     }
 
 	@Override
@@ -105,9 +116,7 @@ public class ItemSeedBase extends ItemBase implements IPlantable {
 	
 	@Override
 	protected void setRecipe() {
-		ItemStack itemStack = new ItemStack(Items.baked_potato, 1);
-		itemStack.setStackDisplayName("Ego's Baked Spud");
-		GameRegistry.addSmelting(new ItemStack(ArkItems.potato, 1, 1), itemStack, 1);
+		
 	}
 	
 
