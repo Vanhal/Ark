@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 
+//some of this was adapted from openblocks and is licensed appropriately
+//https://github.com/OpenMods/OpenBlocks/blob/master/src/main/java/openblocks/common/tileentity/TileEntityBearTrap.java
 public class TileEntityTrap extends TileEntityBase {
 	public static final int OPENING_ANIMATION_TIME = 15;
 	
