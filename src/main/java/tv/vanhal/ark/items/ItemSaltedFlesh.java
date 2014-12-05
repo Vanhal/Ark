@@ -14,6 +14,7 @@ public class ItemSaltedFlesh extends ItemBase {
 	
 	protected void setRecipe() {
 		ShapelessOreRecipe recipe = new ShapelessOreRecipe(new ItemStack(this), Items.rotten_flesh, ArkItems.salt);
+		GameRegistry.addRecipe(recipe);
 		GameRegistry.addSmelting(this, new ItemStack(Items.leather), 0);
 	}
 }
