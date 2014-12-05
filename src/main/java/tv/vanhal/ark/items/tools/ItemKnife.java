@@ -28,7 +28,7 @@ public class ItemKnife extends ItemBase {
 
 	protected void setRecipe() {
 		ShapedOreRecipe recipe = new ShapedOreRecipe(new ItemStack(this), new Object[]{
-			" f ", "s  ", "   ", 'f', Items.flint, 'r', Items.stick});
+			" f ", "s  ", "   ", 'f', Items.flint, 's', Items.stick});
 		GameRegistry.addRecipe(recipe);
 	}
 	
